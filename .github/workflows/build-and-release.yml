@@ -1,0 +1,80 @@
+name: Build and release document
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Compile document
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: template_example.tex
+          args: -pdf -interaction=nonstopmode -halt-on-error
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: professional-template-${{ github.sha }}
+          path: template_example.pdf
+          if-no-files-found: error
+          retention-days: 30
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Compile document
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: template_example.tex
+          args: -pdf -interaction=nonstopmode -halt-on-error
+
+      - name: Prepare release asset
+        id: asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          published_at="$(gh release view "$GITHUB_REF_NAME" --json publishedAt --jq '.publishedAt' 2>/dev/null || true)"
+          if [[ -n "$published_at" && "$published_at" != "null" ]]; then
+            release_date="$(date -u -d "$published_at" +'%Y-%m-%d')"
+          else
+            release_date="$(date -u +'%Y-%m-%d')"
+          fi
+          safe_tag="${GITHUB_REF_NAME//\//-}"
+          asset_name="professional-template-${safe_tag}-${release_date}.pdf"
+          mv template_example.pdf "$asset_name"
+          echo "name=$asset_name" >> "$GITHUB_OUTPUT"
+
+      - name: Create or update GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ASSET_NAME: ${{ steps.asset.outputs.name }}
+        shell: bash
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" "$ASSET_NAME" --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" "$ASSET_NAME" \
+              --target "$GITHUB_SHA" \
+              --title "$GITHUB_REF_NAME" \
+              --generate-notes
+          fi

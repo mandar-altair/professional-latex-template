@@ -1,0 +1,79 @@
+\documentclass{altair_professional}
+
+% =========================================
+% USER CONFIGURATION
+% =========================================
+\renewcommand{\companyName}{Altair Infrasec Pvt. Ltd.}
+\renewcommand{\projectName}{Generic Project Name}
+\renewcommand{\projectCode}{XYZ-001}
+\renewcommand{\docTitle}{Professional Document Template}
+\renewcommand{\docVersion}{1.0.0}
+\renewcommand{\softVersion}{N/A}
+\renewcommand{\docAuthor}{Your Name}
+\renewcommand{\logoFile}{logo.png} % Make sure this file exists in your project directory
+
+% =========================================
+% DOCUMENT BEGINS
+% =========================================
+\begin{document}
+
+% --- TITLE PAGE ---
+\maketitle
+
+% --- FRONT MATTER ---
+% \tableofcontents
+\clearpage
+
+% --- MAIN CONTENT ---
+
+\section{Introduction}
+This document serves as a professional template demonstrating the usage of the `altair\_professional` LaTeX class. It includes various custom environments and styling elements designed for consistency across different document types like manuals, letters, or scope of work documents.
+
+\subsection{Purpose of this Template}
+This template aims to provide a standardized structure and aesthetic for documents produced by \companyName. By using this class, users can focus on content while maintaining a professional and consistent appearance.
+
+\section{Key Features}
+This template includes:
+\begin{itemize}
+  \item Standardized title page with configurable project details.
+  \item Custom header and footer for branding and navigation.
+  \item Professional color palette.
+  \item Specialized boxes for code listings, information notes, and warnings.
+\end{itemize}
+
+\subsection{Code Examples}
+Here are examples of how to use the custom code listing environments:
+
+\begin{terminal}{Linux Command Example}
+  $ ls -la /path/to/your/project
+  $ git status
+  # This is a comment
+\end{terminal}
+
+\begin{powershell}{Windows PowerShell Example}
+  PS C:\> Get-Service -Name "w3svc"
+  PS C:\> ipconfig /all
+  # PowerShell comments start with a hash
+\end{powershell}
+
+\begin{sqlbox}{SQL Query Example}
+  SELECT * FROM users WHERE status = 'active';
+  INSERT INTO products (name, price) VALUES ('New Item', 99.99);
+\end{sqlbox}
+
+\subsection{Notes and Warnings}
+The template also provides environments for important notes and warnings:
+
+\begin{infoNote}{Important Information}
+  Please ensure all required packages are installed in your LaTeX distribution for this class to compile correctly.
+  Refer to the documentation of `tcolorbox`, `fontawesome5`, and `hyperref` for advanced usage.
+\end{infoNote}
+
+\begin{warningBox}{Critical Warning}
+  Modifying the `altair\_professional.cls` file directly is not recommended unless you are familiar with LaTeX class development. Unintended changes might break the document's styling or functionality.
+\end{warningBox}
+
+\section{Conclusion}
+This template provides a robust foundation for creating professional documents. By leveraging its features, you can ensure consistency and high quality across all your written materials.
+
+\end{document}
