@@ -44,6 +44,9 @@ The class provides syntax-highlighted environments for common languages:
 \end{cbox}
 ```
 
+Code listings use Fira Mono, the PDF-friendly companion to Fira Code, and each
+language environment has its own header and icon colors.
+
 `powershell` is also available. For other languages supported by the LaTeX
 `listings` package, use the generic environment with the language followed by
 the title:

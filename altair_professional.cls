@@ -8,6 +8,8 @@
 % 1. PACKAGES
 % =========================================
 \RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[scaled=0.9]{FiraMono}
 \RequirePackage{geometry}
 \RequirePackage{graphicx}
 \RequirePackage{fancyhdr}
@@ -41,7 +43,7 @@
 % 3. STYLE SETUP
 % =========================================
 
-% -- COLORS (PROFESSIONAL GRAYSCALE PALETTE) --
+% -- COLORS --
 \definecolor{primaryColor}{RGB}{34, 34, 34}      % Very Dark Gray (almost black)
 \definecolor{secondaryColor}{RGB}{85, 85, 85}   % Medium Gray
 \definecolor{borderColor}{RGB}{204, 204, 204}    % Light Gray for borders
@@ -50,6 +52,23 @@
 \definecolor{syntaxKeyword}{RGB}{0, 82, 155}     % Vivid blue
 \definecolor{syntaxComment}{RGB}{0, 125, 80}     % Vivid green
 \definecolor{syntaxString}{RGB}{190, 45, 45}     % Vivid red
+\definecolor{terminalColor}{RGB}{45, 55, 72}
+\definecolor{terminalIcon}{RGB}{82, 196, 121}
+\definecolor{powerShellColor}{RGB}{1, 75, 150}
+\definecolor{powerShellIcon}{RGB}{110, 210, 255}
+\definecolor{sqlColor}{RGB}{0, 105, 92}
+\definecolor{sqlIcon}{RGB}{139, 229, 218}
+\definecolor{pythonColor}{RGB}{48, 84, 150}
+\definecolor{pythonIcon}{RGB}{255, 212, 59}
+\definecolor{cColor}{RGB}{63, 81, 181}
+\definecolor{cIcon}{RGB}{144, 202, 249}
+\definecolor{genericCodeColor}{RGB}{106, 76, 147}
+\definecolor{genericCodeIcon}{RGB}{225, 190, 255}
+\definecolor{infoColor}{RGB}{2, 119, 189}
+\definecolor{infoBack}{RGB}{235, 247, 253}
+\definecolor{warningColor}{RGB}{198, 92, 0}
+\definecolor{warningBack}{RGB}{255, 247, 230}
+\definecolor{warningIcon}{RGB}{255, 224, 130}
 
 % -- PAGE GEOMETRY --
 \geometry{a4paper, top=25mm, bottom=25mm, left=20mm, right=20mm, headheight=30pt}
@@ -114,11 +133,11 @@
 % -- Terminal Box (Linux/Generic) --
 \newtcblisting{terminal}[1]{
   enhanced, breakable,
-  colback=codeBlockBack, colframe=borderColor,
+  colback=codeBlockBack, colframe=terminalColor,
   arc=2pt, boxrule=1pt,
-  title={\faTerminal \ \ #1},
+  title={\textcolor{terminalIcon}{\faTerminal} \ \ #1},
   coltitle=white, fonttitle=\bfseries\small,
-  colbacktitle=secondaryColor,
+  colbacktitle=terminalColor,
   listing only,
   listing options={style=baseListingStyle, language=bash}
 }
@@ -126,11 +145,11 @@
 % -- PowerShell Box (Windows) --
 \newtcblisting{powershell}[1]{
   enhanced, breakable,
-  colback=codeBlockBack, colframe=borderColor,
+  colback=codeBlockBack, colframe=powerShellColor,
   arc=2pt, boxrule=1pt,
-  title={\faWindows \ \ PowerShell: #1},
+  title={\textcolor{powerShellIcon}{\faWindows} \ \ PowerShell: #1},
   coltitle=white, fonttitle=\bfseries\small,
-  colbacktitle=secondaryColor,
+  colbacktitle=powerShellColor,
   listing only,
   listing options={style=baseListingStyle, language=PowerShell}
 }
@@ -138,11 +157,11 @@
 % -- SQL Command Box --
 \newtcblisting{sqlbox}[1]{
   enhanced, breakable,
-  colback=codeBlockBack, colframe=borderColor,
+  colback=codeBlockBack, colframe=sqlColor,
   arc=2pt, boxrule=1pt,
-  title={\faDatabase \ \ SQL: #1},
+  title={\textcolor{sqlIcon}{\faDatabase} \ \ SQL: #1},
   coltitle=white, fonttitle=\bfseries\small,
-  colbacktitle=secondaryColor,
+  colbacktitle=sqlColor,
   listing only,
   listing options={style=baseListingStyle, language=SQL}
 }
@@ -150,11 +169,11 @@
 % -- Python Code Box --
 \newtcblisting{pythonbox}[1]{
   enhanced, breakable,
-  colback=codeBlockBack, colframe=borderColor,
+  colback=codeBlockBack, colframe=pythonColor,
   arc=2pt, boxrule=1pt,
-  title={\faPython \ \ Python: #1},
+  title={\textcolor{pythonIcon}{\faPython} \ \ Python: #1},
   coltitle=white, fonttitle=\bfseries\small,
-  colbacktitle=secondaryColor,
+  colbacktitle=pythonColor,
   listing only,
   listing options={style=baseListingStyle, language=Python}
 }
@@ -162,11 +181,11 @@
 % -- C Code Box --
 \newtcblisting{cbox}[1]{
   enhanced, breakable,
-  colback=codeBlockBack, colframe=borderColor,
+  colback=codeBlockBack, colframe=cColor,
   arc=2pt, boxrule=1pt,
-  title={\faCode \ \ C: #1},
+  title={\textcolor{cIcon}{\faCode} \ \ C: #1},
   coltitle=white, fonttitle=\bfseries\small,
-  colbacktitle=secondaryColor,
+  colbacktitle=cColor,
   listing only,
   listing options={style=baseListingStyle, language=C}
 }
@@ -174,33 +193,34 @@
 % -- Generic Code Box: language, then title --
 \newtcblisting{codebox}[2]{
   enhanced, breakable,
-  colback=codeBlockBack, colframe=borderColor,
+  colback=codeBlockBack, colframe=genericCodeColor,
   arc=2pt, boxrule=1pt,
-  title={\faCode \ \ #2},
+  title={\textcolor{genericCodeIcon}{\faCode} \ \ #2},
   coltitle=white, fonttitle=\bfseries\small,
-  colbacktitle=secondaryColor,
+  colbacktitle=genericCodeColor,
   listing only,
   listing options={style=baseListingStyle, language=#1}
 }
 
-% -- Info Note (Gray, Left Bar) --
+% -- Information Note (Blue, Open Callout) --
 \newtcolorbox{infoNote}[1]{
   enhanced, breakable,
-  colback=backgroundColor, colframe=secondaryColor,
-  coltitle=white,
+  colback=infoBack, colframe=infoColor,
+  colbacktitle=infoBack, coltitle=infoColor,
   title={\faInfoCircle \ \ \textbf{#1}},
   fonttitle=\bfseries,
-  arc=0mm, leftrule=3mm, rightrule=0mm, toprule=0mm, bottomrule=0mm,
+  arc=0mm, boxsep=1.5mm,
+  leftrule=2.5mm, rightrule=0mm, toprule=0mm, bottomrule=0mm,
 }
 
-% -- Warning Box (Dark Gray, Full Border) --
+% -- Warning Box (Amber, Full Border) --
 \newtcolorbox{warningBox}[1]{
   enhanced, breakable,
-  colback=backgroundColor, colframe=primaryColor,
+  colback=warningBack, colframe=warningColor,
   coltitle=white,
-  title={\faExclamationTriangle \ \ \textbf{#1}},
+  title={\textcolor{warningIcon}{\faExclamationTriangle} \ \ \textbf{#1}},
   fonttitle=\bfseries, arc=2pt, boxrule=1pt,
-  colbacktitle=secondaryColor
+  colbacktitle=warningColor
 }
 
 % =========================================
