@@ -61,6 +61,34 @@ Here are examples of how to use the custom code listing environments:
   INSERT INTO products (name, price) VALUES ('New Item', 99.99);
 \end{sqlbox}
 
+\begin{pythonbox}{Python Example}
+  def greet(name):
+      # Strings and comments are highlighted independently.
+      print(f"Hello, {name}!")
+
+  greet("Altair")
+\end{pythonbox}
+
+\begin{cbox}{C Example}
+  #include <stdio.h>
+
+  int main(void) {
+      printf("Hello, Altair!\n");
+      return 0;
+  }
+\end{cbox}
+
+The generic \texttt{codebox} environment supports other languages known to the
+\texttt{listings} package by accepting the language name before the title.
+
+\begin{codebox}{Java}{Generic Java Example}
+  public class Example {
+      public static void main(String[] args) {
+          System.out.println("Hello, Altair!");
+      }
+  }
+\end{codebox}
+
 \subsection{Notes and Warnings}
 The template also provides environments for important notes and warnings:
 

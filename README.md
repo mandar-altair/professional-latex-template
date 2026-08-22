@@ -22,6 +22,38 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error template_example.tex
 
 The generated document is written to `template_example.pdf`.
 
+## Syntax-highlighted code
+
+The class provides syntax-highlighted environments for common languages:
+
+```latex
+\begin{terminal}{Linux Command Example}
+  $ git status
+\end{terminal}
+
+\begin{sqlbox}{SQL Query Example}
+  SELECT * FROM users WHERE status = 'active';
+\end{sqlbox}
+
+\begin{pythonbox}{Python Example}
+  print("Hello, Altair!")
+\end{pythonbox}
+
+\begin{cbox}{C Example}
+  printf("Hello, Altair!\n");
+\end{cbox}
+```
+
+`powershell` is also available. For other languages supported by the LaTeX
+`listings` package, use the generic environment with the language followed by
+the title:
+
+```latex
+\begin{codebox}{Java}{Java Example}
+  System.out.println("Hello, Altair!");
+\end{codebox}
+```
+
 To remove generated files:
 
 ```bash

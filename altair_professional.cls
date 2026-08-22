@@ -47,6 +47,9 @@
 \definecolor{borderColor}{RGB}{204, 204, 204}    % Light Gray for borders
 \definecolor{backgroundColor}{RGB}{245, 245, 245}  % Very Light Gray for backgrounds
 \definecolor{codeBlockBack}{RGB}{248, 248, 248} % Off-white for code blocks
+\definecolor{syntaxKeyword}{RGB}{0, 82, 155}     % Vivid blue
+\definecolor{syntaxComment}{RGB}{0, 125, 80}     % Vivid green
+\definecolor{syntaxString}{RGB}{190, 45, 45}     % Vivid red
 
 % -- PAGE GEOMETRY --
 \geometry{a4paper, top=25mm, bottom=25mm, left=20mm, right=20mm, headheight=30pt}
@@ -78,10 +81,34 @@
 % -- General Listing Style --
 \lstdefinestyle{baseListingStyle}{
   basicstyle=\ttfamily\small\color{black},
+  keywordstyle=\color{syntaxKeyword}\bfseries,
+  commentstyle=\color{syntaxComment}\itshape,
+  stringstyle=\color{syntaxString},
   breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
   numbers=none,
+  showstringspaces=false,
+  tabsize=2,
   xleftmargin=1.5em,
   framexleftmargin=1.5em,
+}
+
+% -- PowerShell Language (not included with listings) --
+\lstdefinelanguage{PowerShell}{
+  sensitive=false,
+  alsoletter={-},
+  morekeywords={
+    begin,break,catch,class,continue,data,do,dynamicparam,else,elseif,
+    end,exit,filter,finally,for,foreach,from,function,if,in,param,
+    process,return,switch,throw,trap,try,until,using,var,while,workflow,
+    Get-ChildItem,Get-Command,Get-Content,Get-Help,Get-Process,Get-Service,
+    Import-Module,New-Item,Remove-Item,Select-Object,Set-Content,Where-Object,
+    Write-Error,Write-Host,Write-Output,Write-Warning
+  },
+  morecomment=[l]{\#},
+  morestring=[b]',
+  morestring=[b]"
 }
 
 % -- Terminal Box (Linux/Generic) --
@@ -93,7 +120,7 @@
   coltitle=white, fonttitle=\bfseries\small,
   colbacktitle=secondaryColor,
   listing only,
-  listing options={style=baseListingStyle}
+  listing options={style=baseListingStyle, language=bash}
 }
 
 % -- PowerShell Box (Windows) --
@@ -105,7 +132,7 @@
   coltitle=white, fonttitle=\bfseries\small,
   colbacktitle=secondaryColor,
   listing only,
-  listing options={style=baseListingStyle}
+  listing options={style=baseListingStyle, language=PowerShell}
 }
 
 % -- SQL Command Box --
@@ -117,7 +144,43 @@
   coltitle=white, fonttitle=\bfseries\small,
   colbacktitle=secondaryColor,
   listing only,
-  listing options={style=baseListingStyle}
+  listing options={style=baseListingStyle, language=SQL}
+}
+
+% -- Python Code Box --
+\newtcblisting{pythonbox}[1]{
+  enhanced, breakable,
+  colback=codeBlockBack, colframe=borderColor,
+  arc=2pt, boxrule=1pt,
+  title={\faPython \ \ Python: #1},
+  coltitle=white, fonttitle=\bfseries\small,
+  colbacktitle=secondaryColor,
+  listing only,
+  listing options={style=baseListingStyle, language=Python}
+}
+
+% -- C Code Box --
+\newtcblisting{cbox}[1]{
+  enhanced, breakable,
+  colback=codeBlockBack, colframe=borderColor,
+  arc=2pt, boxrule=1pt,
+  title={\faCode \ \ C: #1},
+  coltitle=white, fonttitle=\bfseries\small,
+  colbacktitle=secondaryColor,
+  listing only,
+  listing options={style=baseListingStyle, language=C}
+}
+
+% -- Generic Code Box: language, then title --
+\newtcblisting{codebox}[2]{
+  enhanced, breakable,
+  colback=codeBlockBack, colframe=borderColor,
+  arc=2pt, boxrule=1pt,
+  title={\faCode \ \ #2},
+  coltitle=white, fonttitle=\bfseries\small,
+  colbacktitle=secondaryColor,
+  listing only,
+  listing options={style=baseListingStyle, language=#1}
 }
 
 % -- Info Note (Gray, Left Bar) --
